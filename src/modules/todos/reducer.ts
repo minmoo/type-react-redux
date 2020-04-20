@@ -9,11 +9,10 @@ const initialState: TodosState = [
     { id: 3, text: '투두리스트 만들기', done: false }
 ];
 
-
 const todos = createReducer<TodosState, TodosAction>(initialState, {
     [ADD_TODO]: (state, { payload: text }) =>
       state.concat({
-        id: Math.max(...state.map(todo => todo.id)) + 1,
+        id: Math.max(...state.map(todo => todo.id)) + 1 | 0, // 문제 있음 고쳐야함 다 지워짐 -infinity
         text,
         done: false
       }),
