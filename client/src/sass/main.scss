@@ -1,0 +1,10 @@
+@import "custom/vars";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "custom/bootstrap";
+
+body {
+    background-color: #7117EA;
+    background-image: linear-gradient(90deg, #7117EA 0%, #F02FC2 100%);
+
+    min-height: 100vh;
+}

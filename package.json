@@ -1,35 +1,20 @@
 {
-  "name": "type-react-redux",
+  "name": "ssg-full-test",
   "version": "1.0.0",
-  "description": "",
+  "description": "ssg-full-test",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --port 8000 --host 0.0.0.0",
-    "build": "webpack --mode development"
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minmoo/type-react-redux.git"
+    "url": "git@gitlab.ssgadm.com:brain/ssg-front-test.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/react": "^16.9.38",
-    "@types/react-dom": "^16.9.8",
-    "css-loader": "^3.6.0",
-    "html-webpack-plugin": "^4.3.0",
-    "mini-css-extract-plugin": "^0.9.0",
-    "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "sass-loader": "^8.0.2",
-    "source-map-loader": "^1.0.0",
-    "style-loader": "^1.2.1",
-    "ts-loader": "^7.0.5",
-    "typescript": "^3.9.5",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "concurrently": "^5.2.0"
   }
 }
