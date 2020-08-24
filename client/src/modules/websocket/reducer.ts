@@ -1,21 +1,27 @@
 import { createReducer } from 'typesafe-actions';
 import produce from 'immer';
 import { WebSocketState, WebSocketAction } from './types';
-import { CONNECTED, DISCONNECTED } from './actions';
+import { CONNECT, DISCONNECT, SET_SOCKET_ID } from './actions';
 
 const initialState: WebSocketState = {
-	isConnected: false,
+    isConnected: false,
+    socketId: ""
 };
 
 const websocket = createReducer<WebSocketState, WebSocketAction>(initialState, {
-	[CONNECTED]: (state, action) =>
+	[CONNECT]: (state, action) =>
 		produce(state, (draft) => {
 			draft.isConnected = true;
 		}),
-	[DISCONNECTED]: (state, action) =>
+	[DISCONNECT]: (state, action) =>
 		produce(state, (draft) => {
-			draft.isConnected = false;
-		}),
+            draft.isConnected = false;
+            draft.socketId = "";
+        }),
+    [SET_SOCKET_ID]: (state, {payload:socketId}) =>
+        produce(state, (draft) => {
+            draft.socketId = socketId;
+        })
 });
 
 export default websocket;

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import useTable from '../../hooks/table/useTable';
 import { Button } from 'react-bootstrap';
 import useConnectTest from '../../hooks/websocket/useConnectTest';
 

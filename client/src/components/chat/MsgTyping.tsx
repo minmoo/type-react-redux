@@ -40,17 +40,17 @@ export default function MsgTyping() {
 	};
 
 	return (
-		<InputGroup className="mb-3">
+		<InputGroup className="mb-1 shadow-lg">
 			<FormControl
 				placeholder="Typing here..."
 				aria-label="Typing here.."
 				aria-describedby="button-addon2"
-				className="rounded-0 border-0 py-4 bg-light"
+				className="rounded-0 border-0 py-4"
 				onKeyPress={onKeyPress}
 				ref={inputRef}
 			/>
-			<InputGroup.Append className="bg-light">
-				<Button variant="link" onClick={onClick}>
+			<InputGroup.Append>
+				<Button variant="link" onClick={onClick} className="bg-white">
 					<FontAwesomeIcon icon={faPaperPlane}></FontAwesomeIcon>
 				</Button>
 			</InputGroup.Append>

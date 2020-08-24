@@ -6,11 +6,11 @@ import MsgBox from '../components/chat/MsgBox';
 function Chat() {
 	return (
 		//TODO device 크기를 lg로 셋팅
-		<Container fluid className="py-5 px-4">
+		<Container fluid className="py-3 px-3">
 			<Row>
 				<Col>
 					<header className="text-center">
-						<h1 className="display-3 text-white">BOT TEST</h1>
+						{/* <h3 className="display-4 text-dark">BOT TEST</h3> */}
 					</header>
 				</Col>
 			</Row>

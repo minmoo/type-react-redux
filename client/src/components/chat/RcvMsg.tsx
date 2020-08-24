@@ -39,7 +39,7 @@ export default function RcvMsg({ msg }: MsgProps) {
 			</Overlay>
 
 			<Media.Body className="ml-1">
-				<div className="bg-light rounded py-2 px-3 mb-2">
+				<div className="bg-white rounded py-2 px-3 mb-2">
 					<p className="text-small mb-0 text-dark">{msg.text}</p>
 				</div>
 				<p className="small text-muted">12:00P PM | Aug 13</p>

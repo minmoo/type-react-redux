@@ -1,9 +1,10 @@
 import * as React from 'react';
-import useTable from '../../hooks/table/useTable';
 import TableBootstrap from './TableBootstrap';
 
+import useWsConnect from '../../hooks/websocket/useWsConnect';
+
 function Table() {
-	useTable();
+	useWsConnect();
 
 	return <TableBootstrap />;
 }

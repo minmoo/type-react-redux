@@ -16,7 +16,7 @@ if (env_found.error){
 }
 
 export default {
-    port: process.env.PORT || 7078,
+    port: process.env.PORT || 7009,
 
     db_conf: {
         db_host: process.env.DB_HOST,

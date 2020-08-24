@@ -14,10 +14,17 @@ class WebSocketIO{
             this.clients.push(socket);
             this.io.to(socket.id).emit('my socket id',{socketId: socket.id});
 
+            socket.on("disconnect", async() => {
+                console.log("client disconnect....", socket.id);
+                this.clients = this.clients.filter((s) => s.id !== socket.id);
+            })
+
             socket.on('receive', async(data) => {
                 console.log('receive');
                 socket.emit('currency', "안녕");
             })
+
+
         })
 
         console.log("websocket created!");

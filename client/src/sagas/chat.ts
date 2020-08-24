@@ -8,25 +8,21 @@ function* chatSendSaga(action: ActionType<typeof chat.send>) {
 	try {
 		const requestMsg = {
 			message: {
-				custom_type: 'plainText',
-				text: action.payload.text,
-			},
-			device_type: '',
+				custom_type: 'text',
+				text: action.payload.text
+			}
 		};
-
-		const { data } = yield axios.post('/test/', {
+		
+		const { data } = yield axios.post(process.env.REACT_APP_CHAT_URL, {
 			sender: {
 				nickname: '김민수',
-				user_id: action.payload.userId,
+				user_id: action.payload.userId
 			},
 			message: {
 				type: 'MESG',
-				custom_type: 'text',
-				data: JSON.stringify(requestMsg),
+				data: JSON.stringify(requestMsg)
 			},
-			bot: {
-				bot_nickname: '',
-			},
+			channel_id: "1"
 		});
 
 		let dataStrAry = data['result_message'].map((msg: { [x: string]: { [x: string]: any } }) => {

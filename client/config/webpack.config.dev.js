@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');           //html 문서에 자동으로 번들파일을 추가해주는 플러그인
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    //bundle.js에 컴파일된 css를 포함시키지 않고 별도의 css 파일로 분리해서 하나의 파일로 번들링
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");       //사용안하는 파일을 자동으로 삭제
+const BundleTracker = require('webpack-bundle-tracker');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     mode: "development",
@@ -47,18 +49,27 @@ module.exports = {
         }),  // 컴파일 + 번들링 css 파일이 저장될 경로와 이름 지정
         new CleanWebpackPlugin({
             cleanAfterEveryBuildPatterns: ['dist']
-        })
+        }),
+        new BundleTracker({
+            path: path.resolve(__dirname, 'dist/tracker'),
+            filename: 'webpack-stats.dev.json'
+        }), //번들파일의 경로 지정(django에서 사용하기 위해)
+        new Dotenv({
+            path: './config/env/.env.development'
+        }), //환경변수 셋팅
     ],
     devServer: {
-        port: 7077,
+        port: 7008,
         host: '0.0.0.0',
-        contentBase: path.join(__dirname, '../dist'),   //정적파일을 제공할 경로 (default 웹팩 아웃풋)
+        contentBase: path.join(__dirname, 'dist'),      //정적파일을 제공할 경로 (default 웹팩 아웃풋)
         publicPath: "/",                                //브라우져를 통해 접근하는 경로 (default /)
         overlay: true,                                  //빌드시 에러나 경고를 브라우져 화면에 표시한다.
         stats: "errors-only",                           // 메세지 수준결정 ('none', 'erros-only' 등등)
         proxy: {
+            //서버의 URL이 틀리거나 PORT가 다르면 PROXY가 적용되지 않는다!
+            //모든 요청에 대해 검사하기 때문에 /apiOne 도 /api proxy적용 ?
             '/api': {
-                target:'http://0.0.0.0:7078'
+                target:'http://0.0.0.0:7009'
             },
             '/test':{
                 target: 'http://202.8.174.146:7071/chatbot/api/request/ssg_csbot_ssgtalk'

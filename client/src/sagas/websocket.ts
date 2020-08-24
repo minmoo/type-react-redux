@@ -8,7 +8,7 @@ import * as table from '../modules/table/actions';
 //(socket.io returns just a callback)
 function connect() {
 	//Real life project extract this into an API module
-	const socket = ioClient.connect('http://202.8.174.146:7078', { transports: ['websocket'] });
+	const socket = ioClient.connect('http://202.8.174.146:7008', { transports: ['websocket'] });
 
 	//We need to wrap the socket connection into a promise (socket returns callback)
 	return new Promise((resolve, reject) => {
@@ -28,7 +28,8 @@ function connect() {
 function subscribe(socket: SocketIOClient.Socket) {
 	return eventChannel((emit) => {
 		socket.on('my socket id', (id) => {
-			console.log('my socket id: ' + id);
+            console.log('my socket id: ' + id);
+            emit(ws.set_socket_id(id));
 		});
 
 		socket.on('table data', (e) => {
@@ -37,7 +38,7 @@ function subscribe(socket: SocketIOClient.Socket) {
 		});
 
 		socket.on('disconnect', (e) => {
-			emit(ws.disconnected());
+			emit(ws.disconnect());
 		});
 		socket.on('error', (error) => {
 			console.log('Error while trying to connect, TODO: proper handle of this event');
@@ -73,12 +74,12 @@ function* handleIO(socket: SocketIOClient.Socket) {
 //register the flow saga. listen for the action, 연결 될 때 한번
 export function* flow() {
 	while (true) {
-		yield take(ws.CONNECTED);
+		yield take(ws.CONNECT);
 		const { socket, error } = yield call(connect);
 		if (socket) {
 			console.log('connection to socket succeeded');
 			const ioTask = yield fork(handleIO, socket);
-			yield take(ws.DISCONNECTED);
+			yield take(ws.DISCONNECT);
 			yield cancel(ioTask);
 			socket.disconnect();
 		} else {

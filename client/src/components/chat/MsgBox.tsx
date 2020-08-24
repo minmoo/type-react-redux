@@ -9,7 +9,7 @@ import MsgTyping from './MsgTyping';
 //TODO chatbox로 바꿀까
 export default function MsgBox() {
 	return (
-		<Container fluid className="w-50">
+		<Container fluid className="w-50 shadow-lg p-0">
 			<Row>
 				<Col>
 					<MsgHeader />
@@ -26,6 +26,7 @@ export default function MsgBox() {
 				</Col>
 			</Row>
 		</Container>
+	
 		// <div>
 		//     <MsgHeader/>
 		//     <MsgList/>

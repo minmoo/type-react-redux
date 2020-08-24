@@ -9,18 +9,18 @@ import { Msg } from '../../modules/chat/types';
 export default function MsgList() {
 	const chat = useChat();
 	const msgs = chat.msgs;
-	const msgEndRef = React.useRef<HTMLDivElement>(null);
+	const msgBoxRef = React.useRef<HTMLDivElement>(null);
 
 	React.useEffect(() => {
-		if (msgEndRef && msgEndRef.current) {
-			msgEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		if (msgBoxRef && msgBoxRef.current){
+			//scroll to Bottom
+			msgBoxRef.current.scrollTop = msgBoxRef.current.scrollHeight - msgBoxRef.current.clientHeight;
 		}
 	});
 
 	return (
-		<div className="msg-box">
+		<div className="msg-box bg-light" ref={msgBoxRef}>
 			{msgs.map((msg: Msg) => (msg.type == 'SEND' ? <SendMsg msg={msg} /> : <RcvMsg msg={msg} />))}
-			<div ref={msgEndRef} />
 		</div>
 	);
 }
